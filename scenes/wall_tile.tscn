@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bttuy3ygcbqks"]
+
+[ext_resource type="Script" uid="uid://b175wp75r7sb5" path="res://scripts/scene_tile.gd" id="1_o6c5x"]
+[ext_resource type="Texture2D" uid="uid://ykui6ypaef8" path="res://icon.svg" id="2_hyie6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ojsl"]
+size = Vector2(16.0327, 16.0802)
+
+[node name="WallTile" type="StaticBody2D"]
+scale = Vector2(0.997963, 0.995013)
+collision_layer = 11
+collision_mask = 3
+script = ExtResource("1_o6c5x")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.125, 0.126)
+texture = ExtResource("2_hyie6")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2ojsl")

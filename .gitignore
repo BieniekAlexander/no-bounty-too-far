@@ -1,0 +1,11 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+*.import
+
+# things I don't own
+assets/
+addons/
+
+# MacOS things
+.DS_Store

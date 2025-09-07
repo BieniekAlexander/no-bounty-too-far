@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct6u800goexjw"]
+
+[ext_resource type="Texture2D" uid="uid://i4y5yhjordvr" path="res://assets/tilemap/Texture/TX Tileset Stone Ground.png" id="2_uioxi"]
+
+[node name="SceneTile" type="Node2D"]
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_uioxi")
+hframes = 3
+vframes = 3

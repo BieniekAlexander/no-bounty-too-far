@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://osxmdhbo6d82"]
+
+[ext_resource type="PackedScene" uid="uid://ca65qbglwsweh" path="res://scenes/doors/door.tscn" id="1_nmu0p"]
+
+[node name="WallTile" instance=ExtResource("1_nmu0p")]
+hinge_location = 0
+vertical = false
+
+[node name="Sprite" parent="." index="0"]
+frame = 1
