@@ -7,9 +7,8 @@
 size = Vector2(16.0327, 16.0802)
 
 [node name="WallTile" type="StaticBody2D"]
-scale = Vector2(0.997963, 0.995013)
 collision_layer = 11
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("1_o6c5x")
 
 [node name="Sprite" type="Sprite2D" parent="."]

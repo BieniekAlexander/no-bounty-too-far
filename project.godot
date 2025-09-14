@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/initial_position_type=3
+window/size/initial_screen=1
 
 [editor_plugins]
 
@@ -82,4 +84,4 @@ common/physics_ticks_per_second=30
 [rendering]
 
 renderer/rendering_method="mobile"
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+environment/defaults/default_clear_color=Color(0.62328, 0.5292, 0.63, 1)
