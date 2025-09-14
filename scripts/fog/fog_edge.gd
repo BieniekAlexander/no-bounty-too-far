@@ -1,4 +1,5 @@
 # reference: https://github.com/OneLoneCoder/Javidx9/blob/master/PixelGameEngine/SmallerProjects/OneLoneCoder_PGE_ShadowCasting2D.cpp
+## A line segment representing a vision boundary
 class_name FogEdge extends Object
 
 var start: Vector2

@@ -34,14 +34,15 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	#if fog_grid == []: # TODO collisions not instantly working, idk why, so I run this every frame
-	fog_grid = generate_fog_grid()
+	fog_grid = generate_fog_grid(
+		ground_tiles.get_used_rect().size,
+		Vector2i.ZERO,
+		ground_tiles.tile_set.tile_size.x
+	)
+	
 	var fog_edges: Array = generate_fog_edge_map(
-		0,
-		0,
-		ground_tiles.get_used_rect().size.x,
-		ground_tiles.get_used_rect().size.y,
-		16,
-		0    
+		fog_grid,
+		16
 	)
 	
 	visibility_polygon_triples = get_visibility_polgygon_triples(fog_edges, character.global_position.x, character.global_position.y, 50)
@@ -57,33 +58,43 @@ func _physics_process(_delta: float) -> void:
 	else:
 		push_error("failed to calc LOS")
 
-## Generate the grid which describes the 
-func generate_fog_grid() -> Array:
-	var dimensions: Vector2i = ground_tiles.get_used_rect().size
-	var tile_size: int = ground_tiles.tile_set.tile_size.x
+## Generate the grid which describes the visibility obstructions of a space
+func generate_fog_grid(a_dimensions: Vector2i, a_space_top_left: Vector2i, a_cell_width: int) -> Array:
 	var ret: Array = Array()
 	
-	for i in range(dimensions.x):
-		ret.append([])
+	# notice the range extension for bounding cells, which will always "obstruct view" for LOS calculation
+	for i in range(-1, a_dimensions.x+1):
+		var row: Array = []
 		
-		for j in range(dimensions.y):
-			ret[i].append(FogCell.new())
+		for j in range(-1, a_dimensions.y+1):
+			row.append(
+				FogCell.new(
+					a_space_top_left + Vector2i(i, j)*a_cell_width,
+					a_cell_width,
+					i==-1 or i==a_dimensions.x or j==-1 or j==a_dimensions.y
+				)
+			)
+		
+		ret.append(row)
 	
 	var pp = PhysicsPointQueryParameters2D.new()
-	pp.position = Vector2.ONE*float(tile_size)/2
+	pp.position = Vector2.ONE*float(a_cell_width)/2
 	pp.collision_mask = 8
 	
-	for x in range(dimensions.x):
-		for y in range(dimensions.y):
-			pp.position = Vector2.ONE*float(tile_size)/2 + Vector2(x, y)*tile_size
+	for row in ret:
+		for cell in row:
+			if cell.bounding:
+				cell.obstructs = true
+			else:
+				pp.position = cell.tl + Vector2i.ONE*a_cell_width/2
 			
-			if ground_tiles.get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1):
-				ret[x][y].exist = true
+				if ground_tiles.get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1):
+					cell.obstructs = true
 	
 	return ret
 
 ## Calculate the segments representing line of sight edges
-func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: float, pitch: int) -> Array:
+func generate_fog_edge_map(fog_grid: Array, f_block_width: float) -> Array:
 	var ret: Array = []
 
 	for row: Array in fog_grid:
@@ -91,23 +102,26 @@ func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: floa
 			for dir: int in CD.values():
 				cell.edge_ids[dir] = NO_EDGE
 	
-	var dimensions: Vector2i = ground_tiles.get_used_rect().size
+	var dimensions: Vector2i = Vector2i(
+		fog_grid.size(),
+		fog_grid[0].size()
+	)
 	
-	for x in range(w):
-		for y in range(h):
+	for x in range(dimensions.x):
+		for y in range(dimensions.y):
 			var index: Vector2i = Vector2i(x, y)
 			var north: Vector2i = index + NEIGHBOR_INDEX_OFFSET_MAP[CD.N]
-			var south: Vector2i = index + NEIGHBOR_INDEX_OFFSET_MAP[CD.S]
 			var west: Vector2i = index + NEIGHBOR_INDEX_OFFSET_MAP[CD.W]
-			var east: Vector2i = index + NEIGHBOR_INDEX_OFFSET_MAP[CD.E]
 			
 			for direction in NEIGHBOR_INDEX_OFFSET_MAP.keys():
+				var cell: FogCell = fog_grid[index.x][index.y]
 				var neighbor: Vector2i = index + NEIGHBOR_INDEX_OFFSET_MAP[direction]
+				if neighbor.x<0 or neighbor.x>=dimensions.x or neighbor.y<0 or neighbor.y>=dimensions.y: continue
 				
 				# If this cell exists, check if it needs edges
-				if fog_grid[x][y].exist:
+				if fog_grid[x][y].obstructs:
 					# if no neighbor exists, represent an edge here
-					if not fog_grid[neighbor.x][neighbor.y].exist:
+					if not fog_grid[neighbor.x][neighbor.y].obstructs:
 						#region west check
 						if direction==CD.W:
 							# northern neighbor has west edge, so extend that as our edge
@@ -116,11 +130,7 @@ func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: floa
 								fog_grid[index.x][index.y].edge_ids[CD.W] = fog_grid[north.x][north.y].edge_ids[CD.W]
 							# northern neighbor doesn't have west edge, so we start a new one
 							else:
-								var edge: FogEdge = FogEdge.new(
-									Vector2((sx + x) * f_block_width, (sy + y) * f_block_width),
-									Vector2((sx + x) * f_block_width, (sy + y + 1) * f_block_width)
-								)
-								
+								var edge: FogEdge = FogEdge.new(cell.tl, cell.bl)
 								var edge_id: int = ret.size()
 								ret.push_back(edge)
 								fog_grid[index.x][index.y].edge_ids[CD.W] = edge_id
@@ -131,11 +141,7 @@ func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: floa
 								ret[fog_grid[north.x][north.y].edge_ids[CD.E]].end.y += f_block_width
 								fog_grid[index.x][index.y].edge_ids[CD.E] = fog_grid[north.x][north.y].edge_ids[CD.E]
 							else:
-								var edge: FogEdge = FogEdge.new(
-									Vector2((sx + x + 1) * f_block_width, (sy + y) * f_block_width),
-									Vector2((sx + x + 1) * f_block_width, (sy + y + 1) * f_block_width)
-								)
-								
+								var edge: FogEdge = FogEdge.new(cell.tr, cell.br)
 								var edge_id: int = ret.size()
 								ret.push_back(edge)
 								fog_grid[index.x][index.y].edge_ids[CD.E] = edge_id
@@ -146,11 +152,7 @@ func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: floa
 								ret[fog_grid[west.x][west.y].edge_ids[CD.N]].end.x += f_block_width
 								fog_grid[index.x][index.y].edge_ids[CD.N] = fog_grid[west.x][west.y].edge_ids[CD.N]
 							else:
-								var edge: FogEdge = FogEdge.new(
-									Vector2((sx + x) * f_block_width, (sy + y) * f_block_width),
-									Vector2((sx + x + 1) * f_block_width, (sy + y) * f_block_width)
-								)
-								
+								var edge: FogEdge = FogEdge.new(cell.tl, cell.tr)
 								var edge_id: int = ret.size()
 								ret.push_back(edge)
 								fog_grid[index.x][index.y].edge_ids[CD.N] = edge_id
@@ -161,16 +163,12 @@ func generate_fog_edge_map(sx: int, sy: int, w: int, h: int, f_block_width: floa
 								ret[fog_grid[west.x][west.y].edge_ids[CD.S]].end.x += f_block_width
 								fog_grid[index.x][index.y].edge_ids[CD.S] = fog_grid[west.x][west.y].edge_ids[CD.S]
 							else:
-								var edge: FogEdge = FogEdge.new(
-									Vector2((sx + x) * f_block_width, (sy + y + 1) * f_block_width),
-									Vector2((sx + x + 1) * f_block_width, (sy + y + 1) * f_block_width)
-								)
-								
+								var edge: FogEdge = FogEdge.new(cell.bl, cell.br)
 								var edge_id: int = ret.size()
 								ret.push_back(edge)
 								fog_grid[index.x][index.y].edge_ids[CD.S] = edge_id
 						#endregion
-	
+	#print(ret)
 	return ret
 
 ## Get the triples representing the visibility polygonsm given a view obstructing edge set
