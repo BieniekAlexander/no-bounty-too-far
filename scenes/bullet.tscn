@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://sm5482c5vwpb"]
+
+[ext_resource type="Script" uid="uid://byvjltyhf37yb" path="res://scripts/items/projectile.gd" id="1_y25gk"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_mkf8s"]
+b = Vector2(10, 0)
+
+[node name="Bullet" type="CharacterBody2D"]
+z_index = 10
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_y25gk")
+SPEED = 20.0
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("SegmentShape2D_mkf8s")
+
+[node name="Trace" type="Line2D" parent="."]
+z_index = 10
+points = PackedVector2Array(0, 0, 10, 0)
+width = 5.0
+default_color = Color(0.25, 0.25, 0.1425, 1)
