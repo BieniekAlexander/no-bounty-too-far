@@ -9,6 +9,6 @@ Yet another video game project that I'm starting, who knows if I'll finish it
 # Testing
 Use [GUT](https://github.com/bitwes/Gut) for unit testing when applicable.
 
-# Roadmap
+# Design
+- See the [Game Design Documentation](./gdd) for [Obsidian](https://obsidian.md) documentation of the goal state of this project
 - See the Issues section for bugs and features to work on
-- TODO make a game design document - thinking to use Quartz for it
