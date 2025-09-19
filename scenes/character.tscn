@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://5gr3d66bvibv"]
+[gd_scene load_steps=9 format=3 uid="uid://5gr3d66bvibv"]
 
-[ext_resource type="Script" uid="uid://cwf5jsieh31x2" path="res://scripts/character.gd" id="1_my7n2"]
+[ext_resource type="Script" uid="uid://cwf5jsieh31x2" path="res://scripts/agents/character.gd" id="1_my7n2"]
 [ext_resource type="Texture2D" uid="uid://bpdw747bgwhc6" path="res://assets/tilemap/Texture/TX Player.png" id="3_0lw5n"]
-[ext_resource type="Script" uid="uid://dbfywakc4kvxm" path="res://scripts/actor.gd" id="4_2cgup"]
+[ext_resource type="Script" uid="uid://dbfywakc4kvxm" path="res://scripts/agents/actor.gd" id="4_2cgup"]
+[ext_resource type="Script" uid="uid://bashsi5inawgj" path="res://scripts/agents/agent.gd" id="4_my7n2"]
+[ext_resource type="Script" uid="uid://y0dcqllt0anr" path="res://scripts/agents/inventory.gd" id="5_dp8ca"]
+[ext_resource type="Texture2D" uid="uid://ykui6ypaef8" path="res://icon.svg" id="6_0lw5n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ya6ni"]
 radius = 12.0
@@ -25,12 +28,54 @@ hframes = 4
 vframes = 2
 
 [node name="Actor" type="Area2D" parent="."]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 4
 script = ExtResource("4_2cgup")
 
 [node name="Collider" type="CollisionShape2D" parent="Actor"]
 shape = SubResource("CircleShape2D_6y2o2")
+
+[node name="Agent" type="Node2D" parent="."]
+script = ExtResource("4_my7n2")
+
+[node name="Ray" type="RayCast2D" parent="Agent"]
+collision_mask = 3
+
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("5_dp8ca")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Label" type="Label" parent="HUD"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Potato"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="TextureRect" parent="HUD/HBoxContainer"]
+modulate = Color(1, 0.26, 0.26, 1)
+layout_mode = 2
+texture = ExtResource("6_0lw5n")
+
+[node name="Label2" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "sdf"
+
+[node name="Label3" type="Label" parent="HUD/HBoxContainer"]
+layout_mode = 2
+text = "dfg"
 
 [connection signal="area_entered" from="Actor" to="Actor" method="_on_area_entered"]
 [connection signal="area_exited" from="Actor" to="Actor" method="_on_area_exited"]
