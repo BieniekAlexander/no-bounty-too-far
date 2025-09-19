@@ -38,6 +38,10 @@ shape = SubResource("CircleShape2D_6y2o2")
 [node name="Agent" type="Node2D" parent="."]
 script = ExtResource("4_my7n2")
 
+[node name="NavigationAgent" type="NavigationAgent2D" parent="Agent"]
+avoidance_enabled = true
+radius = 15.0
+
 [node name="Ray" type="RayCast2D" parent="Agent"]
 collision_mask = 3
 

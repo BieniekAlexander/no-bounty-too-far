@@ -26,6 +26,10 @@ window/size/initial_screen=1
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
+[global_group]
+
+traffic=""
+
 [input]
 
 character_move_left={
