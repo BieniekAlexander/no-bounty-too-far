@@ -23,7 +23,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if player==null: return
 	
-	ray.global_position = global_position+(player.global_position-global_position).normalized() * 30
+	ray.global_position = global_position
 	ray.target_position = (player.global_position-global_position)
 	sees_target = false
 	
@@ -68,7 +68,3 @@ func process_navigation() -> void:
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
 	get_parent().global_position = global_position.move_toward(global_position + safe_velocity, get_parent().RUN_SPEED/30)
 #endregion
-
-
-	
-	

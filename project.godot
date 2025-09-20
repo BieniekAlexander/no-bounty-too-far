@@ -115,6 +115,10 @@ character_equipment_7={
 2d_physics/layer_3="interactive"
 2d_physics/layer_4="vision"
 
+[navigation]
+
+2d/default_cell_size=16.0
+
 [physics]
 
 common/physics_ticks_per_second=30
