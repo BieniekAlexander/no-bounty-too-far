@@ -23,12 +23,11 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if player==null: return
 	
-	ray.global_position = global_position
-	ray.target_position = (player.global_position-global_position)
+	ray.target_position = (player.sight_position-global_position)
 	sees_target = false
 	
 	# calculate visibility
-	if ray.is_colliding() and ray.get_collider()==player:
+	if not ray.is_colliding() or ray.get_collider()==player:
 		$'..'.show()
 		if abs(ray.target_position.angle_to(character.aim_direction))<1.0:
 			character.get_node("Sprite").self_modulate=Color.RED

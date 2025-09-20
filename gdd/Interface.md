@@ -1,5 +1,6 @@
 # Inputs
 - Move and Aim
+	- moving towards a corner allows you to **peek** around the wall
 - on-screen inventory, and maybe a backpack or something additional
 - **Dialog**: talk, or otherwise perform some additional actions as selected from a menu
 - **Walk**: cap the move speed, i.e. for sneaking

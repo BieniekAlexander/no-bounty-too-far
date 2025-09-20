@@ -16,6 +16,9 @@ var movement_direction: Vector2 = Vector2.ZERO
 var temp_rocket: bool = false # TODO just giving extra button, but controls will be reworked
 var using_item: bool = false
 var walking: bool = false
+var peek_dir: Vector2 = Vector2.ZERO
+var sight_position: Vector2:
+	get: return global_position + peek_dir*20
 #endregion
 
 #region properties
@@ -65,8 +68,34 @@ func _process(_delta: float) -> void:
 #region physics
 func physics_process_movement() -> void:
 	velocity = movement_direction * (WALK_SPEED if walking else RUN_SPEED)
-	move_and_slide()
+	if peek_dir.dot(movement_direction)<0: peek_dir = Vector2.ZERO
 	
+	if peek_dir==Vector2.ZERO:
+		move_and_slide()
+		var collision: KinematicCollision2D = get_last_slide_collision()
+		
+		if collision:
+			if check_peek(movement_direction, collision):
+				peek_dir = movement_direction
+
+## check if the character is peeking around a corner
+func check_peek(a_movement_direction: Vector2, a_collision: KinematicCollision2D) -> bool:
+	# Specifically, a character shall be said to peek around a corner if:
+	# - they're running into a wall at a diagonal
+	# - there is open space where the character's velocity projects onto the wall's direction
+	if a_movement_direction==Vector2.ZERO or a_collision.get_normal().cross(a_movement_direction) in [0., 1., -1.]:
+		return false
+	
+	var opening_direction = velocity.project(a_collision.get_normal().orthogonal()).normalized()
+	var pp = PhysicsPointQueryParameters2D.new()
+	pp.collision_mask = 1
+	pp.exclude = [get_rid()]
+	pp.position = global_position + opening_direction*16
+	var adj_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1).is_empty()
+	pp.position = global_position + a_movement_direction.normalized()*20
+	var diag_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1).is_empty()
+	return adj_open and diag_open
+
 ## Process the use of the item held by the character
 func physics_process_actions() -> void:
 	if using_item:
