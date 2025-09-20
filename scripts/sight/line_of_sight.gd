@@ -219,7 +219,11 @@ func _physics_process(_delta: float) -> void:
 			tile_size
 		)
 	
-	visibility_polygon_triples = get_visibility_polgygon_triples(fog_edges, player.global_position, player.vision_radius)
+	visibility_polygon_triples = get_visibility_polgygon_triples(
+		fog_edges,
+		player.sight_position,
+		player.vision_radius
+	)
 	
 	los_points = PackedVector2Array(
 		visibility_polygon_triples.map(
