@@ -8,7 +8,7 @@ extends CharacterBody2D
 #region controls
 @export var me: bool
 
-var aim_direction: Vector2 = Vector2.RIGHT
+var aim_direction: Vector2 = Vector2.LEFT
 var aim_position: Vector2 = Vector2.ZERO
 var equipment_index: int = 0
 
