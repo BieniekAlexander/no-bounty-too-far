@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Character extends CharacterBody2D
 
 #region children
 @onready var actor: Node2D = $Actor
@@ -30,9 +30,9 @@ const WALK_SPEED: float = 50.
 #region HUD
 func process_hud() -> void:
 	if inventory.items[equipment_index]!=null:
-		$"HUD/Label".text = inventory.items[equipment_index].get_hud_text()
+		$"HUD/AmmoLabel".text = inventory.items[equipment_index].get_hud_text()
 	else:
-		$"HUD/Label".text = ""
+		$"HUD/AmmoLabel".text = ""
 #endregion
 
 ### Interaction
@@ -43,6 +43,7 @@ func _ready() -> void:
 	if me:
 		add_to_group("player")
 		remove_child($Agent)
+		$HUD/ItemsBar.set_character(self)
 	else:
 		remove_child($HUD)
 		add_to_group("foggable")
@@ -63,6 +64,9 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("character_use_item"): using_item = true
 		
 	process_aim()
+	
+func on_queue_free() -> void:
+	queue_free()
 #endregion
 
 #region physics

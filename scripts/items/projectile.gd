@@ -11,9 +11,10 @@ func _physics_process(_delta: float) -> void:
 	
 	if collision:
 		if breaks_stuff: collision.get_collider().on_queue_free()
+		elif collision.get_collider() is Character: collision.get_collider().on_queue_free()
 		queue_free()
 
-func fire(a_origin: Vector2, a_aim_direction: Vector2, a_range: float=20):
-	global_position = a_origin+a_aim_direction*a_range
-	velocity = SPEED * a_aim_direction.normalized()
-	rotation = a_aim_direction.angle()
+func fire(a_user: Character, a_range: float=20):
+	global_position = a_user.global_position+a_user.aim_direction*a_range
+	velocity = SPEED * a_user.aim_direction.normalized()
+	rotation = a_user.aim_direction.angle()

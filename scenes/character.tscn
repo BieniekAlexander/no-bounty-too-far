@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://5gr3d66bvibv"]
 
 [ext_resource type="Script" uid="uid://cwf5jsieh31x2" path="res://scripts/agents/character.gd" id="1_my7n2"]
-[ext_resource type="Texture2D" uid="uid://bpdw747bgwhc6" path="res://assets/tilemap/Texture/TX Player.png" id="3_0lw5n"]
+[ext_resource type="Texture2D" uid="uid://ceoyc4euq6ce1" path="res://assets/player.png" id="2_0lw5n"]
 [ext_resource type="Script" uid="uid://dbfywakc4kvxm" path="res://scripts/agents/actor.gd" id="4_2cgup"]
 [ext_resource type="Script" uid="uid://bashsi5inawgj" path="res://scripts/agents/agent.gd" id="4_my7n2"]
 [ext_resource type="Script" uid="uid://y0dcqllt0anr" path="res://scripts/agents/inventory.gd" id="5_dp8ca"]
-[ext_resource type="Texture2D" uid="uid://ykui6ypaef8" path="res://icon.svg" id="6_0lw5n"]
+[ext_resource type="Script" uid="uid://bc1ybglhij7wp" path="res://scripts/hud/items_bar.gd" id="6_2cgup"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ya6ni"]
 radius = 12.0
@@ -14,7 +14,7 @@ radius = 12.0
 radius = 26.0768
 
 [node name="Character" type="CharacterBody2D"]
-collision_layer = 3
+collision_layer = 19
 collision_mask = 3
 script = ExtResource("1_my7n2")
 
@@ -23,8 +23,8 @@ shape = SubResource("CircleShape2D_ya6ni")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
-texture = ExtResource("3_0lw5n")
-hframes = 4
+texture = ExtResource("2_0lw5n")
+hframes = 5
 vframes = 2
 
 [node name="Actor" type="Area2D" parent="."]
@@ -51,35 +51,111 @@ script = ExtResource("5_dp8ca")
 [node name="HUD" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="Label" type="Label" parent="HUD"]
+[node name="AmmoLabel" type="Label" parent="HUD"]
 offset_right = 40.0
 offset_bottom = 23.0
 text = "Potato"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUD"]
+[node name="ItemsBar" type="HBoxContainer" parent="HUD"]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -14.0
+offset_right = 14.0
 grow_horizontal = 2
 grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("6_2cgup")
 
-[node name="Label" type="TextureRect" parent="HUD/HBoxContainer"]
-modulate = Color(1, 0.26, 0.26, 1)
+[node name="Slot1" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-texture = ExtResource("6_0lw5n")
 
-[node name="Label2" type="Label" parent="HUD/HBoxContainer"]
-layout_mode = 2
-text = "sdf"
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot1"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
 
-[node name="Label3" type="Label" parent="HUD/HBoxContainer"]
+[node name="Slot2" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-text = "dfg"
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot2"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="Slot3" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot3"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="Slot4" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot4"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="Slot5" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot5"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="Slot6" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot6"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="Slot7" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/Slot7"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
+
+[node name="SlotInventory" type="Panel" parent="HUD/ItemsBar"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HUD/ItemsBar/SlotInventory"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 70.0
+offset_bottom = 70.0
 
 [connection signal="area_entered" from="Actor" to="Actor" method="_on_area_entered"]
 [connection signal="area_exited" from="Actor" to="Actor" method="_on_area_exited"]

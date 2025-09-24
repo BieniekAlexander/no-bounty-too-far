@@ -114,6 +114,8 @@ character_equipment_7={
 2d_physics/layer_2="ballistic"
 2d_physics/layer_3="interactive"
 2d_physics/layer_4="vision"
+2d_physics/layer_5="electric"
+2d_physics/layer_6="flammabla"
 
 [navigation]
 

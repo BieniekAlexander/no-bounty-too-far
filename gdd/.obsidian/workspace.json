@@ -18,8 +18,21 @@
               "icon": "excalidraw-icon",
               "title": "m1.excalidraw"
             }
+          },
+          {
+            "id": "b06e547be7c65dbf",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.9.12"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.9.12"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -168,7 +181,7 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "6c420fe568911b15",
+  "active": "eb35304d6735afff",
   "lastOpenFiles": [
     "Excalidraw/m1.excalidraw.md",
     "Excalidraw/controls.excalidraw.md",

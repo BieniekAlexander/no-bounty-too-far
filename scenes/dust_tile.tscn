@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ct6u800goexjw"]
 
-[ext_resource type="Texture2D" uid="uid://i4y5yhjordvr" path="res://assets/tilemap/Texture/TX Tileset Stone Ground.png" id="2_uioxi"]
+[ext_resource type="Texture2D" uid="uid://i4y5yhjordvr" path="res://assets/external/tilemap/Texture/TX Tileset Stone Ground.png" id="2_uioxi"]
 
 [node name="SceneTile" type="Node2D"]
 

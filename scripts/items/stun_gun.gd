@@ -1,13 +1,13 @@
-class_name RPG extends Equippable
+class_name StunGun extends Equippable
 
-const ROCKET = preload('res://scenes/rocket.tscn')
+const SHOCK = preload('res://scenes/shock.tscn')
 
 func get_hud_text() -> String:
-	return "rocket: %s" % count
+	return "charges: %s" % count
 
 func use(a_user: CharacterBody2D) -> void:
 	if count>0:
-		var new = ROCKET.instantiate()
+		var new = SHOCK.instantiate()
 		a_user.get_parent().add_child(new)
 		new.fire(a_user)
 		count -= 1

@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://dfhy8cd5sxcfm" path="res://scripts/scene.gd" id="1_tx4k1"]
 [ext_resource type="PackedScene" uid="uid://bttuy3ygcbqks" path="res://scenes/wall_tile.tscn" id="2_6y2o2"]
 [ext_resource type="PackedScene" uid="uid://c6hvc232h4f5t" path="res://scenes/doors/door_tr_h.tscn" id="3_jy3qc"]
-[ext_resource type="Texture2D" uid="uid://0shlrd377h33" path="res://assets/tilemap/Texture/TX Tileset Grass.png" id="3_nvwnn"]
+[ext_resource type="Texture2D" uid="uid://0shlrd377h33" path="res://assets/external/tilemap/Texture/TX Tileset Grass.png" id="3_nvwnn"]
 [ext_resource type="PackedScene" uid="uid://5gr3d66bvibv" path="res://scenes/character.tscn" id="3_ya6ni"]
-[ext_resource type="Texture2D" uid="uid://cuc4mkdp255h0" path="res://assets/tilemap/Texture/TX Props.png" id="4_ya6ni"]
+[ext_resource type="Texture2D" uid="uid://cuc4mkdp255h0" path="res://assets/external/tilemap/Texture/TX Props.png" id="4_ya6ni"]
 [ext_resource type="PackedScene" uid="uid://dn6tjhlmyxq12" path="res://scenes/doors/door_bl_v.tscn" id="5_8w2qs"]
 [ext_resource type="PackedScene" uid="uid://yw2511kno8vl" path="res://scenes/doors/door_bl_h.tscn" id="6_51dr8"]
 [ext_resource type="PackedScene" uid="uid://d2koasi02lxqk" path="res://scenes/doors/door_br_v.tscn" id="7_whyai"]
@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://nn1v6cm3a4pl" path="res://scripts/sight/fog_drawer.gd" id="15_r7kh0"]
 [ext_resource type="Shader" uid="uid://5kstfk7dhcmg" path="res://shaders/fog.gdshader" id="15_tx4k1"]
 [ext_resource type="Script" uid="uid://decaearehyjhd" path="res://scripts/items/acquirable.gd" id="19_er4wm"]
-[ext_resource type="Texture2D" uid="uid://dp4wan3qgba1" path="res://assets/tilemap/Texture/TX Plant.png" id="19_ot3ff"]
+[ext_resource type="Texture2D" uid="uid://dp4wan3qgba1" path="res://assets/external/tilemap/Texture/TX Plant.png" id="19_ot3ff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ya6ni"]
 texture = ExtResource("3_nvwnn")

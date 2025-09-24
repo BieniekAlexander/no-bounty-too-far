@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm7ibi22flreg"]
+[gd_scene load_steps=3 format=3 uid="uid://cm7ibi22flreg"]
 
 [ext_resource type="Script" uid="uid://bpdknvjibtgw4" path="res://scripts/items/rpg.gd" id="1_1r2sg"]
+[ext_resource type="Texture2D" uid="uid://cxgn5077offka" path="res://assets/rpg.icon.png" id="2_civfm"]
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_1r2sg")
+inventory_icon = ExtResource("2_civfm")

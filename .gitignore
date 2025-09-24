@@ -4,7 +4,7 @@
 *.import
 
 # things I don't own
-assets/
+assets/external/
 addons/
 
 # MacOS things

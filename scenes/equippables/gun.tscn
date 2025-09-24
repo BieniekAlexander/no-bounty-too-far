@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://coy21qy1e7kpf"]
+[gd_scene load_steps=3 format=3 uid="uid://coy21qy1e7kpf"]
 
 [ext_resource type="Script" uid="uid://d4lvmr5enqwc8" path="res://scripts/items/equippable.gd" id="1_csvrv"]
+[ext_resource type="Texture2D" uid="uid://corjl6p48kbg6" path="res://assets/gun.icon.png" id="2_bdetc"]
 
 [node name="Gun" type="Node2D"]
 script = ExtResource("1_csvrv")
+inventory_icon = ExtResource("2_bdetc")

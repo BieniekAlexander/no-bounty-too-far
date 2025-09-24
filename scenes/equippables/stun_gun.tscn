@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://02r1i4pr5a57"]
+
+[ext_resource type="Script" uid="uid://eamoy4pwuoqe" path="res://scripts/items/stun_gun.gd" id="1_gq0go"]
+[ext_resource type="Texture2D" uid="uid://djn2aq3bvcxyc" path="res://assets/stun_gun.icon.png" id="2_gq0go"]
+
+[node name="StunGun" type="Node2D"]
+script = ExtResource("1_gq0go")
+inventory_icon = ExtResource("2_gq0go")
