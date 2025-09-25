@@ -32,8 +32,9 @@ func _physics_process(_delta: float) -> void:
 		if goal.is_actionable():
 			actionable_goals.append(goal)
 	
-	if not goals.is_empty():
-		var current_goal: Goal = goals[0]
+	if not actionable_goals.is_empty():
+		# TODO set goal priorities
+		var current_goal: Goal = actionable_goals[0]
 		current_goal.action.transition.call(self)
 
 	process_navigation()

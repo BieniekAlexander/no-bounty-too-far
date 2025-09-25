@@ -19,9 +19,10 @@ func update(a_agent: Agent) -> void:
 		aware = state_check.call(a_agent, object)
 
 static func visible(a_agent: Agent, a_target: Node) -> bool:
-	a_agent.sight_ray.target_position = a_target.sight_position-a_agent.global_position
+	a_agent.sight_ray.target_position = a_target.global_position-a_agent.global_position
+	a_agent.sight_ray.force_raycast_update()	
 
-	if not a_agent.sight_ray.is_colliding() or a_agent.sight_ray.get_collider()==a_target:
+	if not a_agent.sight_ray.is_colliding():
 		if abs(a_agent.sight_ray.target_position.angle_to(a_agent.character.aim_direction))<1.0:
 			return true
 	

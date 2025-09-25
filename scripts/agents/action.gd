@@ -14,6 +14,8 @@ func _init(a_object: Variant, a_transition: Callable) -> void:
 static func shoot(a_object: Variant) -> Action:
 	return Action.new(
 		a_object,
-		func(_a_agent): pass
+		func(a_agent: Agent):
+			a_agent.character.aim_direction = (a_object.global_position-a_agent.global_position).normalized()
+			a_agent.character.using_item = true
 	)
 	

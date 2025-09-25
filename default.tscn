@@ -706,9 +706,9 @@ navigation_enabled = false
 [node name="LOSServer" type="Node2D" parent="."]
 script = ExtResource("12_qfctx")
 
-[node name="Civilian" parent="." groups=["obstructable"] instance=ExtResource("3_ya6ni")]
+[node name="Guard" parent="." groups=["obstructable"] instance=ExtResource("3_ya6ni")]
 material = SubResource("CanvasItemMaterial_qfctx")
-position = Vector2(210, 119)
+position = Vector2(211, 114)
 
 [node name="Shade" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_kab2t")
@@ -743,7 +743,7 @@ script = ExtResource("15_r7kh0")
 process_priority = -1
 process_physics_priority = -1
 material = SubResource("CanvasItemMaterial_qfctx")
-position = Vector2(223, 278)
+position = Vector2(225, 272)
 me = true
 
 [node name="Grass" type="Node2D" parent="." groups=["obstructable"]]

@@ -9,7 +9,6 @@ class_name Character extends CharacterBody2D
 @export var me: bool
 
 var aim_direction: Vector2 = Vector2.LEFT
-var aim_position: Vector2 = Vector2.ZERO
 var equipment_index: int = 0
 
 var movement_direction: Vector2 = Vector2.ZERO
@@ -124,7 +123,6 @@ func physics_process_sight() -> void:
 #region input
 func input_aim() -> void:
 	aim_direction = (get_viewport().get_mouse_position() - global_position).normalized()
-	aim_position = get_global_mouse_position()
 
 func input_movement() -> void:
 	movement_direction = Vector2(

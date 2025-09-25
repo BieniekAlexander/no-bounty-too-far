@@ -20,7 +20,7 @@ func udpate_facts(a_agent: Agent) -> void:
 		fact.update(a_agent)
 
 func is_actionable() -> bool:
-	return false
+	return facts.all(func(f: Fact): return f.aware)
 
 static func kill(a_object: Variant) -> Goal:
 	return Goal.new(
