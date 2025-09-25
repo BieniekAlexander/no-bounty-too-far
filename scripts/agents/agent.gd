@@ -7,9 +7,11 @@ class_name Agent extends Node2D
 #region agent
 @onready var character: CharacterBody2D = $'..'
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent
+@onready var patrol_region: PatrolRegion2D = $'../../PatrolRegion'
 @onready var goals: Array = [
 	Goal.kill($'../../Player')
 ]
+var patrol_point: Vector2
 var player: CharacterBody2D
 var shoot_delay: int = 90
 var sees_target: bool = false
@@ -22,30 +24,45 @@ func _ready() -> void:
 	add_to_group("agent")
 	sight_ray.add_exception_rid($'../Collider'.shape)
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	patrol_point = Vector2.INF
 
 func _physics_process(_delta: float) -> void:
 	var actionable_goals: Array = []
+
+	if patrol_point==Vector2.INF:
+		var interest_index = ArrayUtils.arg_max(
+				patrol_region.polygon_graph.values(),
+				func(p: PatrolPolygon): return p.interest
+			)
+		patrol_point = patrol_region.polygon_graph.values()[interest_index].centroid
+		nav_agent.set_target_position(patrol_point)
+		print(patrol_region.polygon_graph.values()[interest_index].interest)
 	
-	for goal: Goal in goals:
-		goal.udpate_facts(self)
+	# for goal: Goal in goals:
+	# 	goal.udpate_facts(self)
 		
-		if goal.is_actionable():
-			actionable_goals.append(goal)
+	# 	if goal.is_actionable():
+	# 		actionable_goals.append(goal)
 	
-	if not actionable_goals.is_empty():
-		# TODO set goal priorities
-		var current_goal: Goal = actionable_goals[0]
-		current_goal.action.transition.call(self)
+	# if not actionable_goals.is_empty():
+	# 	# TODO set goal priorities
+	# 	var current_goal: Goal = actionable_goals[0]
+	# 	current_goal.action.transition.call(self)
+
+	var current_polygon: PatrolPolygon = patrol_region.get_closest_polygon(global_position)
+	patrol_region.get_closest_polygon(global_position).interest = 0.
 
 	process_navigation()
+
 #endregion
 
 #region navigation
 ## calculate the desired position of the agent against the navmesh
 func process_navigation() -> void:
 	if NavigationServer2D.map_get_iteration_id(nav_agent.get_navigation_map()) == 0 or nav_agent.is_navigation_finished():
+		patrol_point = Vector2.INF
 		return
-	
+
 	var next_path_position: Vector2 = nav_agent.get_next_path_position()
 	nav_agent.set_velocity(global_position.direction_to(next_path_position) * get_parent().RUN_SPEED/30)
 

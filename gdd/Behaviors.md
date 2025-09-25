@@ -19,3 +19,5 @@
 	- different NPCs will have different motivations (maybe by faction, employment, etc.)
 		- some will want to kill you
 		- some will want to help you
+# Patrolling
+https://arxiv.org/html/2508.18527v1

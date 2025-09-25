@@ -5,7 +5,7 @@
 
 # things I don't own
 assets/external/
-addons/
+addons/gut/
 
 # MacOS things
 .DS_Store
