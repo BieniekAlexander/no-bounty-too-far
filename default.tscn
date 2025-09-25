@@ -706,7 +706,7 @@ navigation_enabled = false
 [node name="LOSServer" type="Node2D" parent="."]
 script = ExtResource("12_qfctx")
 
-[node name="Civilian" parent="." instance=ExtResource("3_ya6ni")]
+[node name="Civilian" parent="." groups=["obstructable"] instance=ExtResource("3_ya6ni")]
 material = SubResource("CanvasItemMaterial_qfctx")
 position = Vector2(210, 119)
 
@@ -740,14 +740,13 @@ size = Vector2i(850, 430)
 script = ExtResource("15_r7kh0")
 
 [node name="Player" parent="." instance=ExtResource("3_ya6ni")]
-unique_name_in_owner = true
 process_priority = -1
 process_physics_priority = -1
 material = SubResource("CanvasItemMaterial_qfctx")
 position = Vector2(223, 278)
 me = true
 
-[node name="Grass" type="Node2D" parent="."]
+[node name="Grass" type="Node2D" parent="." groups=["obstructable"]]
 position = Vector2(133, 231)
 script = ExtResource("19_er4wm")
 

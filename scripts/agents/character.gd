@@ -25,6 +25,8 @@ var sight_position: Vector2:
 const RUN_SPEED: float = 120.
 const WALK_SPEED: float = 50.
 @export var vision_radius: float = 50.
+@onready var sight_ray: RayCast2D = $SightRay
+@onready var peak_query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 #endregion
 
 #region HUD
@@ -40,6 +42,9 @@ var interactable: Node2D = null
 
 #region Game Loop
 func _ready() -> void:
+	peak_query.collision_mask = 2
+	peak_query.exclude = [get_rid()]
+	
 	if me:
 		add_to_group("player")
 		remove_child($Agent)
@@ -51,8 +56,10 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	physics_process_movement()
 	physics_process_actions()
-	
 	actor.physics_process(_delta)
+
+	if me:
+		physics_process_sight()
 
 func _process(_delta: float) -> void:
 	if me:
@@ -72,7 +79,7 @@ func on_queue_free() -> void:
 #region physics
 func physics_process_movement() -> void:
 	velocity = movement_direction * (WALK_SPEED if walking else RUN_SPEED)
-	if peek_dir.dot(movement_direction)<0: peek_dir = Vector2.ZERO
+	if peek_dir.dot(movement_direction)<.8: peek_dir = Vector2.ZERO
 	
 	if peek_dir==Vector2.ZERO:
 		move_and_slide()
@@ -91,13 +98,10 @@ func check_peek(a_movement_direction: Vector2, a_collision: KinematicCollision2D
 		return false
 	
 	var opening_direction = velocity.project(a_collision.get_normal().orthogonal()).normalized()
-	var pp = PhysicsPointQueryParameters2D.new()
-	pp.collision_mask = 1
-	pp.exclude = [get_rid()]
-	pp.position = global_position + opening_direction*16
-	var adj_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1).is_empty()
-	pp.position = global_position + a_movement_direction.normalized()*20
-	var diag_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(pp, 1).is_empty()
+	peak_query.position = global_position + opening_direction*12
+	var adj_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(peak_query, 1).is_empty()
+	peak_query.position = global_position + a_movement_direction.normalized()*20
+	var diag_open: bool = get_viewport().find_world_2d().direct_space_state.intersect_point(peak_query, 1).is_empty()
 	return adj_open and diag_open
 
 ## Process the use of the item held by the character
@@ -106,6 +110,15 @@ func physics_process_actions() -> void:
 		using_item = false
 		if $Inventory.items[equipment_index]!=null:
 			$Inventory.items[equipment_index].use(self)
+
+## Loop over the objects in the world and hide them if they're obstructed
+func physics_process_sight() -> void:
+	sight_ray.global_position = sight_position
+	
+	for thing: Node in get_tree().get_nodes_in_group("obstructable"):
+		sight_ray.target_position = thing.global_position-sight_ray.global_position
+		sight_ray.force_raycast_update()
+		thing.find_child("Sprite").visible = not sight_ray.is_colliding()
 #endregion
 
 #region input

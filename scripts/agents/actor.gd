@@ -1,4 +1,4 @@
-extends Area2D
+class_name Actor extends Area2D
 
 @onready var collider: CollisionShape2D = $Collider
 

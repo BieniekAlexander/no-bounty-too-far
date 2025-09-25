@@ -14,12 +14,15 @@ radius = 12.0
 radius = 26.0768
 
 [node name="Character" type="CharacterBody2D"]
-collision_layer = 19
-collision_mask = 3
+collision_layer = 17
+collision_mask = 2
+motion_mode = 1
+safe_margin = 0.1
 script = ExtResource("1_my7n2")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ya6ni")
+debug_color = Color(0.79856807, 0.046042398, 0.99999994, 0.41960785)
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
@@ -41,9 +44,6 @@ script = ExtResource("4_my7n2")
 [node name="NavigationAgent" type="NavigationAgent2D" parent="Agent"]
 avoidance_enabled = true
 radius = 15.0
-
-[node name="Ray" type="RayCast2D" parent="Agent"]
-collision_mask = 3
 
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("5_dp8ca")
@@ -156,6 +156,9 @@ offset_left = 10.0
 offset_top = 10.0
 offset_right = 70.0
 offset_bottom = 70.0
+
+[node name="SightRay" type="RayCast2D" parent="."]
+collision_mask = 8
 
 [connection signal="area_entered" from="Actor" to="Actor" method="_on_area_entered"]
 [connection signal="area_exited" from="Actor" to="Actor" method="_on_area_exited"]

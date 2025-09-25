@@ -29,6 +29,7 @@ enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 [global_group]
 
 traffic=""
+obstructable="objects that might be made invisible by wall obstruction"
 
 [input]
 
@@ -110,12 +111,13 @@ character_equipment_7={
 
 [layer_names]
 
-2d_physics/layer_1="traffic"
-2d_physics/layer_2="ballistic"
+2d_physics/layer_1="body"
+2d_physics/layer_2="traffic"
 2d_physics/layer_3="interactive"
 2d_physics/layer_4="vision"
 2d_physics/layer_5="electric"
-2d_physics/layer_6="flammabla"
+2d_physics/layer_6="flammable"
+2d_physics/layer_7="ballistic"
 
 [navigation]
 
