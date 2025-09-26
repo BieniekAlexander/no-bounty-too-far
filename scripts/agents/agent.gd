@@ -36,7 +36,6 @@ func _physics_process(_delta: float) -> void:
 			)
 		patrol_point = patrol_region.polygon_graph.values()[interest_index].centroid
 		nav_agent.set_target_position(patrol_point)
-		print(patrol_region.polygon_graph.values()[interest_index].interest)
 	
 	# for goal: Goal in goals:
 	# 	goal.udpate_facts(self)
@@ -49,9 +48,8 @@ func _physics_process(_delta: float) -> void:
 	# 	var current_goal: Goal = actionable_goals[0]
 	# 	current_goal.action.transition.call(self)
 
-	var current_polygon: PatrolPolygon = patrol_region.get_closest_polygon(global_position)
 	patrol_region.get_closest_polygon(global_position).interest = 0.
-
+	
 	process_navigation()
 
 #endregion
