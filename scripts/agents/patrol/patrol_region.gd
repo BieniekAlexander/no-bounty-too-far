@@ -25,6 +25,13 @@ func _ready() -> void:
 			if x.is_connected_to(y):
 				x.neighbors.add(y)
 				y.neighbors.add(x)
+	
+	var max_neighbors: int = polygon_graph.values().map(
+		func(polygon: PatrolPolygon): return polygon.neighbors.size()
+	).max()
+
+	for x: PatrolPolygon in polygon_graph.values():
+		x.separation = max_neighbors - x.neighbors.size()
 
 func get_closest_polygon(a_point: Vector2) -> PatrolPolygon:
 	# TODO find a more performant way to do this, maybe BST or something

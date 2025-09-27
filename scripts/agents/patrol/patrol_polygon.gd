@@ -13,8 +13,8 @@ var suspicion: float = 0.0
 ## A measure of how long it's been since the area was patrolled
 var staleness: float = 0.0
 
-## A measure of how accessible a given region is from other regions, 
-var connectivity: float = 0.0
+## A measure of how relatively inaccessible a given region is
+var separation: int = 0
 
 func _init(
 	a_vertex_indices: Set,
@@ -27,7 +27,7 @@ func _init(
 	centroid = get_centroid(bound_locations)
 
 func get_interest() -> float:
-	return suspicion + staleness + connectivity
+	return suspicion + staleness + float(separation)
 
 func is_connected_to(a_other: PatrolPolygon) -> bool:
 	return vertex_indices.intersection(a_other.vertex_indices).size()>=2
