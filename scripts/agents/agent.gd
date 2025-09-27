@@ -28,24 +28,32 @@ func _ready() -> void:
 	patrol_point = Vector2.INF
 
 func _physics_process(_delta: float) -> void:
+	process_goals()
+	process_navigation()
+#endregion
+
+#region GOAP
+## Check for the current action to perform, based on the current set of goals, and perform it
+func process_goals() -> void:
 	var actionable_goals: Array = []
 	
 	for goal: Goal in goals:
-		goal.udpate_facts(self)
+		goal.update_facts(self)
 		
 		if goal.is_actionable():
 			actionable_goals.append(goal)
 	
 	if not actionable_goals.is_empty():
-		# TODO set goal priorities
-		var current_goal: Goal = actionable_goals[0]
+		var current_goal: Goal = ArrayUtils.sort_on_key(
+			actionable_goals,
+			func(goal: Goal): return -goal.priority
+		)[0]
+		 
 		current_goal.action.transition.call(self)
-
-	process_navigation()
-
 #endregion
 
 #region navigation
+## Query the [PatrolRegion] for the "most interesting" place to navigate to
 func get_next_patrol_point(a_patrol_spec: PatrolSpec) -> Vector2:
 	var interest_index = ArrayUtils.arg_max(
 		a_patrol_spec.region.polygon_graph.values(),

@@ -207,6 +207,9 @@ func _ready() -> void:
 	world_boundary_points.append(world_size*Vector2i(0,1))
 
 func _physics_process(_delta: float) -> void:
+	if not is_instance_valid(player):
+		return
+	
 	if fog_edges.size()<=4: # TODO collisions not instantly working, idk why, so I run this every frame
 		fog_grid = generate_fog_grid(
 			ground_tiles.get_used_rect().size,

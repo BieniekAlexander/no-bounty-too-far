@@ -6,25 +6,29 @@ class_name Fact
 var aware: bool = false
 
 ## The game entity that the fact pertains to
-var object: Node
+var object: Variant
 
 ## A function to check against the object
 var state_check: Callable
 
-func _init(a_object: Node, a_state_check: Callable) -> void:
+func _init(a_object: Variant, a_state_check: Callable) -> void:
 	object = a_object
 	state_check = a_state_check
 
 func update(a_agent: Agent) -> void:
-		aware = state_check.call(a_agent, object)
+	aware = state_check.call(a_agent, object)
 
 ## Check whether the given [param a_agent] can see the [param a_target], according to raycasts against the obstruction collision layer
-static func can_see(a_agent: Agent, a_target: Node) -> bool:
+static func can_see(a_agent: Agent, a_target: Variant) -> bool:
 	a_agent.sight_ray.target_position = a_target.global_position-a_agent.global_position
-	a_agent.sight_ray.force_raycast_update()	
+	a_agent.sight_ray.force_raycast_update()
 
 	if not a_agent.sight_ray.is_colliding():
 		if abs(a_agent.sight_ray.target_position.angle_to(a_agent.character.aim_direction))<1.0:
 			return true
 	
 	return false
+
+## A fact state check function that always returns true
+static func always_true() -> Callable:
+	return func(_a_agent: Agent, _a_target: Variant) -> bool: return true

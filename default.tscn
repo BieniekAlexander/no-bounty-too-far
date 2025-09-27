@@ -715,7 +715,7 @@ metadata/_custom_type_script = "uid://dgy3vprleptx1"
 
 [node name="Guard" parent="." groups=["obstructable"] instance=ExtResource("3_ya6ni")]
 material = SubResource("CanvasItemMaterial_qfctx")
-position = Vector2(463, 258)
+position = Vector2(457, 78)
 
 [node name="Shade" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_kab2t")
@@ -754,6 +754,7 @@ position = Vector2(225, 272)
 me = true
 
 [node name="Grass" type="Node2D" parent="." groups=["obstructable"]]
+editor_description = "A game object I made to test the ability to interact with and pick up items - doesn't really do anything right now"
 position = Vector2(133, 231)
 script = ExtResource("19_er4wm")
 
