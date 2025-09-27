@@ -18,7 +18,8 @@ func _init(a_object: Node, a_state_check: Callable) -> void:
 func update(a_agent: Agent) -> void:
 		aware = state_check.call(a_agent, object)
 
-static func visible(a_agent: Agent, a_target: Node) -> bool:
+## Check whether the given [param a_agent] can see the [param a_target], according to raycasts against the obstruction collision layer
+static func can_see(a_agent: Agent, a_target: Node) -> bool:
 	a_agent.sight_ray.target_position = a_target.global_position-a_agent.global_position
 	a_agent.sight_ray.force_raycast_update()	
 

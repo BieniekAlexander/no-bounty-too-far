@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "objectives.md",
+                "file": "mechanics/Behaviors.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "objectives"
+              "title": "Behaviors"
             }
           }
         ]
@@ -172,8 +172,8 @@
   },
   "active": "b06e547be7c65dbf",
   "lastOpenFiles": [
-    "mechanics/Behaviors.md",
     "objectives.md",
+    "mechanics/Behaviors.md",
     "prototypes.md",
     "Excalidraw/m1.excalidraw.md",
     "mechanics/Inventory.md",

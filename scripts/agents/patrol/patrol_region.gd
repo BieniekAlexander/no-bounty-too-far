@@ -1,3 +1,5 @@
+## Extension of a NavigationRegion 2D, supplying additional information regarding what an agent should patrol, 
+## as composed of [PatrolPolygon]
 class_name PatrolRegion2D extends NavigationRegion2D
 
 var polygon_graph: Dictionary = {}
@@ -51,4 +53,4 @@ func get_closest_polygon(a_point: Vector2) -> PatrolPolygon:
 
 func _physics_process(_delta: float) -> void:
 	for polygon: PatrolPolygon in polygon_graph.values():
-		polygon.interest += .1
+		polygon.staleness += .1

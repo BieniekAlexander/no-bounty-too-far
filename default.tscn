@@ -15,12 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://bnx8i5m173b7m" path="res://scenes/doors/door_tr_v.tscn" id="11_uhb1d"]
 [ext_resource type="Script" uid="uid://irl1vhhcm45f" path="res://scripts/sight/line_of_sight.gd" id="12_qfctx"]
 [ext_resource type="Shader" uid="uid://c5bsafuhsv7lh" path="res://shaders/shade.gdshader" id="13_rernc"]
+[ext_resource type="Script" uid="uid://dgy3vprleptx1" path="res://scripts/agents/patrol/patrol_region.gd" id="14_5k2kf"]
 [ext_resource type="Script" uid="uid://c0rghjyq14kcn" path="res://scripts/sight/shade_drawer.gd" id="15_ot3ff"]
 [ext_resource type="Script" uid="uid://nn1v6cm3a4pl" path="res://scripts/sight/fog_drawer.gd" id="15_r7kh0"]
 [ext_resource type="Shader" uid="uid://5kstfk7dhcmg" path="res://shaders/fog.gdshader" id="15_tx4k1"]
 [ext_resource type="Script" uid="uid://decaearehyjhd" path="res://scripts/items/acquirable.gd" id="19_er4wm"]
 [ext_resource type="Texture2D" uid="uid://dp4wan3qgba1" path="res://assets/external/tilemap/Texture/TX Plant.png" id="19_ot3ff"]
-[ext_resource type="Script" uid="uid://cfsrkjsopvu24" path="res://scripts/agents/patrol_region.gd" id="21_5k2kf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ya6ni"]
 texture = ExtResource("3_nvwnn")
@@ -661,6 +661,17 @@ sources/2 = SubResource("TileSetAtlasSource_ya6ni")
 sources/3 = SubResource("TileSetScenesCollectionSource_ya6ni")
 sources/4 = SubResource("TileSetAtlasSource_6y2o2")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_er4wm"]
+vertices = PackedVector2Array(342.02344, 78.03906, 342.02344, 15.9609375, 359.97656, 47.960938, 359.97656, 206.03906, 355.60156, 335.96094, 212.45313, 238.03906, 342.02344, 238.03906, 360, 329, 360, 335.96094, 422.02344, 206.03906, 422.02344, 47.960938, 533.96094, 15.921875, 535.97656, 46.140625, 535.97656, 430.03906, 438.02344, 335.96094, 167.97656, 175.96094, 167.97656, 207.61719, 21.0625, 107.13281, 406, 335.96094, 406, 329, 561.6797, 430.03906, 564.96094, 479.17188, 438.02344, 392.32813, 342.02344, 175.96094, 167.97656, 78.03906, 21.867188, 13.078125, 167.97656, 15.9609375)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13, 14), PackedInt32Array(15, 16, 17), PackedInt32Array(14, 18, 19, 9), PackedInt32Array(13, 20, 21), PackedInt32Array(13, 21, 22, 14), PackedInt32Array(9, 19, 7, 6, 3), PackedInt32Array(3, 6, 23), PackedInt32Array(0, 3, 23), PackedInt32Array(24, 0, 23, 15, 17), PackedInt32Array(24, 17, 25, 26), PackedInt32Array(26, 25, 11, 1), PackedInt32Array(1, 11, 10, 2)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(6, 115, 582, 509, 548, 1, 7, -2)])
+parsed_geometry_type = 1
+parsed_collision_mask = 4294967042
+source_geometry_mode = 1
+source_geometry_group_name = &"traffic"
+cell_size = 16.0
+agent_radius = 15.0
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qfctx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kab2t"]
@@ -677,17 +688,6 @@ viewport_path = NodePath("FogViewport")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_er4wm"]
 radius = 30.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_er4wm"]
-vertices = PackedVector2Array(342.02344, 78.03906, 342.02344, 15.9609375, 359.97656, 47.960938, 359.97656, 206.03906, 355.60156, 335.96094, 212.45313, 238.03906, 342.02344, 238.03906, 360, 329, 360, 335.96094, 422.02344, 206.03906, 422.02344, 47.960938, 533.96094, 15.921875, 535.97656, 46.140625, 535.97656, 430.03906, 438.02344, 335.96094, 167.97656, 175.96094, 167.97656, 207.61719, 21.0625, 107.13281, 406, 335.96094, 406, 329, 561.6797, 430.03906, 564.96094, 479.17188, 438.02344, 392.32813, 342.02344, 175.96094, 167.97656, 78.03906, 21.867188, 13.078125, 167.97656, 15.9609375)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(9, 10, 11, 12, 13, 14), PackedInt32Array(15, 16, 17), PackedInt32Array(14, 18, 19, 9), PackedInt32Array(13, 20, 21), PackedInt32Array(13, 21, 22, 14), PackedInt32Array(9, 19, 7, 6, 3), PackedInt32Array(3, 6, 23), PackedInt32Array(0, 3, 23), PackedInt32Array(24, 0, 23, 15, 17), PackedInt32Array(24, 17, 25, 26), PackedInt32Array(26, 25, 11, 1), PackedInt32Array(1, 11, 10, 2)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(6, 115, 582, 509, 548, 1, 7, -2)])
-parsed_geometry_type = 1
-parsed_collision_mask = 4294967042
-source_geometry_mode = 1
-source_geometry_group_name = &"traffic"
-cell_size = 16.0
-agent_radius = 15.0
 
 [node name="Root" type="Node2D"]
 z_index = 1
@@ -706,6 +706,12 @@ navigation_enabled = false
 
 [node name="LOSServer" type="Node2D" parent="."]
 script = ExtResource("12_qfctx")
+
+[node name="PatrolRegion" type="NavigationRegion2D" parent="."]
+position = Vector2(-7, 2)
+navigation_polygon = SubResource("NavigationPolygon_er4wm")
+script = ExtResource("14_5k2kf")
+metadata/_custom_type_script = "uid://dgy3vprleptx1"
 
 [node name="Guard" parent="." groups=["obstructable"] instance=ExtResource("3_ya6ni")]
 material = SubResource("CanvasItemMaterial_qfctx")
@@ -763,8 +769,3 @@ collision_mask = 0
 
 [node name="Collider" type="CollisionShape2D" parent="Grass/Acquirable"]
 shape = SubResource("CircleShape2D_er4wm")
-
-[node name="PatrolRegion" type="NavigationRegion2D" parent="."]
-position = Vector2(-7, 2)
-navigation_polygon = SubResource("NavigationPolygon_er4wm")
-script = ExtResource("21_5k2kf")

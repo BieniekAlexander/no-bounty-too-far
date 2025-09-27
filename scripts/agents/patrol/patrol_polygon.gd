@@ -1,10 +1,20 @@
+## A representation of a region to patrol, as described by [url=https://arxiv.org/html/2508.18527v1]Composite Potential Fields[/url]
 class_name PatrolPolygon
 
 var neighbors: Set
 var vertex_indices: Set
 var bound_locations: PackedVector2Array
 var centroid: Vector2
-var interest: float = 0.0
+
+## A measure that increases according to situations worth investigating based on an agent's perceptions,
+##  e.g. if an agent spots an unknown person or an out-of-place item
+var suspicion: float = 0.0
+
+## A measure of how long it's been since the area was patrolled
+var staleness: float = 0.0
+
+## A measure of how accessible a given region is from other regions, 
+var connectivity: float = 0.0
 
 func _init(
 	a_vertex_indices: Set,
@@ -15,6 +25,9 @@ func _init(
 	bound_locations = a_bound_locations
 	vertex_indices = a_vertex_indices
 	centroid = get_centroid(bound_locations)
+
+func get_interest() -> float:
+	return suspicion + staleness + connectivity
 
 func is_connected_to(a_other: PatrolPolygon) -> bool:
 	return vertex_indices.intersection(a_other.vertex_indices).size()>=2
