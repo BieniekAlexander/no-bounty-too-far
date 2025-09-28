@@ -3,8 +3,6 @@ extends Node2D
 
 @onready var los_server = $'../../LOSServer'
 
-var c: int = 0
-
 func _ready() -> void:
 	var fog_viewport: SubViewport = $'..'
 	fog_viewport.size = los_server.world_size

@@ -51,6 +51,12 @@ func _ready() -> void:
 	else:
 		remove_child($HUD)
 		add_to_group("foggable")
+		$'../SightViewport'.add_child(
+			LineOfSightDrawer.new(
+				self,
+				$'../LOSServer'
+			)
+		)
 
 func _physics_process(_delta: float) -> void:
 	physics_process_movement()

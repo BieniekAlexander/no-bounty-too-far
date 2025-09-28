@@ -1,5 +1,6 @@
-# source: https://didacromero.github.io/Fog-of-War/
-extends Node2D
+## Server that calculates sight obstruction within the active scene
+## source: https://didacromero.github.io/Fog-of-War/
+class_name LineOfSightServer extends Node2D
 
 #region world info
 @onready var player: CharacterBody2D = $"../Player"
