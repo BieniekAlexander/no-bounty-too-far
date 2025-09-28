@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=4 uid="uid://djnlnxrua2qau"]
+[gd_scene load_steps=36 format=4 uid="uid://djnlnxrua2qau"]
 
 [ext_resource type="Script" uid="uid://dfhy8cd5sxcfm" path="res://scripts/scene.gd" id="1_tx4k1"]
 [ext_resource type="PackedScene" uid="uid://bttuy3ygcbqks" path="res://scenes/wall_tile.tscn" id="2_6y2o2"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://c0rghjyq14kcn" path="res://scripts/sight/shade_drawer.gd" id="15_ot3ff"]
 [ext_resource type="Script" uid="uid://nn1v6cm3a4pl" path="res://scripts/sight/fog_drawer.gd" id="15_r7kh0"]
 [ext_resource type="Shader" uid="uid://5kstfk7dhcmg" path="res://shaders/fog.gdshader" id="15_tx4k1"]
+[ext_resource type="Shader" uid="uid://b3xk6u7ssc0mn" path="res://shaders/sight.gdshader" id="16_5k2kf"]
 [ext_resource type="Script" uid="uid://decaearehyjhd" path="res://scripts/items/acquirable.gd" id="19_er4wm"]
 [ext_resource type="Texture2D" uid="uid://dp4wan3qgba1" path="res://assets/external/tilemap/Texture/TX Plant.png" id="19_ot3ff"]
 
@@ -674,7 +675,7 @@ agent_radius = 15.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qfctx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kab2t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5k2kf"]
 shader = ExtResource("13_rernc")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_rernc"]
@@ -685,6 +686,9 @@ shader = ExtResource("15_tx4k1")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_r7kh0"]
 viewport_path = NodePath("FogViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vipt"]
+shader = ExtResource("16_5k2kf")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5k2kf"]
 viewport_path = NodePath("SightViewport")
@@ -701,7 +705,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAEAAAAAAAIAAgAAAAI
 tile_set = SubResource("TileSet_7vjpr")
 
 [node name="Buildings" type="TileMapLayer" parent="." groups=["traffic"]]
-z_index = 2
+z_index = 3
 position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAANAAIAAwAAAAAAAQANAAMAAwAAAAAAAQANAAwAAwAAAAAAAQANAA0AAwAAAAAAAQAOAAIAAwAAAAAAAQAOAAMAAwAAAAAAAQAOAAwAAwAAAAAAAQAOAA0AAwAAAAAAAQAPAAIAAwAAAAAAAQAPAAMAAwAAAAAAAQAPAAwAAwAAAAAAAQAPAA0AAwAAAAAAAQAQAAIAAwAAAAAAAQAQAAMAAwAAAAAAAQAQAAwAAwAAAAAAAQAQAA0AAwAAAAAAAQARAAIAAwAAAAAAAQARAAMAAwAAAAAAAQARAAwAAwAAAAAAAQARAA0AAwAAAAAAAQASAAIAAwAAAAAAAQASAAMAAwAAAAAAAQASAAwAAwAAAAAAAQASAA0AAwAAAAAAAQATAAIAAwAAAAAAAQATAAMAAwAAAAAAAQATAAwAAwAAAAAAAQATAA0AAwAAAAAAAQAXAAQAAwAAAAAAAQAXAAUAAwAAAAAAAQAXAAYAAwAAAAAAAQAXAAcAAwAAAAAAAQAXAAgAAwAAAAAAAQAXAAkAAwAAAAAAAQAXAAoAAwAAAAAAAQAXAAsAAwAAAAAAAQAYAAQAAwAAAAAAAQAYAAUAAwAAAAAAAQAYAAYAAwAAAAAAAQAYAAcAAwAAAAAAAQAYAAgAAwAAAAAAAQAYAAkAAwAAAAAAAQAYAAoAAwAAAAAAAQAYAAsAAwAAAAAAAQAmAAAAAwAAAAAAAQAmAAYAAwAAAAAAAQAnAAAAAwAAAAAAAQAnAAYAAwAAAAAAAQAoAAAAAwAAAAAAAQAoAAYAAwAAAAAAAQApAAAAAwAAAAAAAQApAAYAAwAAAAAAAQAqAAAAAwAAAAAAAQAqAAYAAwAAAAAAAQArAAAAAwAAAAAAAQArAAYAAwAAAAAAAQAsAAAAAwAAAAAAAQAsAAYAAwAAAAAAAQAtAAAAAwAAAAAAAQAtAAYAAwAAAAAAAQAuAAAAAwAAAAAAAQAuAAYAAwAAAAAAAQAvAAAAAwAAAAAAAQAvAAYAAwAAAAAAAQAwAAAAAwAAAAAAAQAwAAYAAwAAAAAAAQAxAAAAAwAAAAAAAQAxAAYAAwAAAAAAAQAyAAAAAwAAAAAAAQAyAAYAAwAAAAAAAQAzAAAAAwAAAAAAAQAzAAEAAwAAAAAAAQAzAAIAAwAAAAAAAQAzAAMAAwAAAAAAAQAzAAQAAwAAAAAAAQAzAAUAAwAAAAAAAQAzAAYAAwAAAAAAAQAzAAcAAwAAAAAAAQAzAAgAAwAAAAAAAQAzAAkAAwAAAAAAAQAzAAoAAwAAAAAAAQAzAAsAAwAAAAAAAQAzAAwAAwAAAAAAAQAzAA0AAwAAAAAAAQAzAA4AAwAAAAAAAQAzAA8AAwAAAAAAAQAzABAAAwAAAAAAAQAzABEAAwAAAAAAAQAzABIAAwAAAAAAAQAzABMAAwAAAAAAAQAMAAMAAwAAAAAAAQALAAMAAwAAAAAAAQAMAAwAAwAAAAAAAQALAAwAAwAAAAAAAQALAA0AAwAAAAAAAQAMAA0AAwAAAAAAAQAMAAIAAwAAAAAAAQALAAIAAwAAAAAAAQALABYAAwAAAAAAAQALABcAAwAAAAAAAQALABgAAwAAAAAAAQALABkAAwAAAAAAAQALABoAAwAAAAAAAQALABsAAwAAAAAAAQALABwAAwAAAAAAAQALAB4AAwAAAAAAAQALAB8AAwAAAAAAAQAMABYAAwAAAAAAAQAMAB8AAwAAAAAAAQANABYAAwAAAAAAAQANAB8AAwAAAAAAAQAOABYAAwAAAAAAAQAOAB8AAwAAAAAAAQAPABYAAwAAAAAAAQAPAB8AAwAAAAAAAQAQABYAAwAAAAAAAQAQAB8AAwAAAAAAAQARABYAAwAAAAAAAQARAB8AAwAAAAAAAQASABYAAwAAAAAAAQASAB8AAwAAAAAAAQATABYAAwAAAAAAAQATAB8AAwAAAAAAAQAUABYAAwAAAAAAAQAUAB8AAwAAAAAAAQAVABYAAwAAAAAAAQAVAB8AAwAAAAAAAQAWABYAAwAAAAAAAQAWAB8AAwAAAAAAAQAXAB8AAwAAAAAAAQAYAB8AAwAAAAAAAQAZABYAAwAAAAAAAQAZABcAAwAAAAAAAQAZABgAAwAAAAAAAQAZABkAAwAAAAAAAQAZABoAAwAAAAAAAQAZABsAAwAAAAAAAQAZABwAAwAAAAAAAQAZAB4AAwAAAAAAAQAZAB8AAwAAAAAAAQAkAAAAAwAAAAAAAQAkAAYAAwAAAAAAAQAlAAAAAwAAAAAAAQAiAAAAAwAAAAAAAQAiAAEAAwAAAAAAAQAiAAIAAwAAAAAAAQAiAAMAAwAAAAAAAQAiAAQAAwAAAAAAAQAiAAUAAwAAAAAAAQAiAAYAAwAAAAAAAQAiAAcAAwAAAAAAAQAiAAgAAwAAAAAAAQAiAAkAAwAAAAAAAQAiAAoAAwAAAAAAAQAiAAsAAwAAAAAAAQAiAAwAAwAAAAAAAQAiAA0AAwAAAAAAAQAiAA4AAwAAAAAAAQAiAA8AAwAAAAAAAQAiABAAAwAAAAAAAQAiABEAAwAAAAAAAQAiABIAAwAAAAAAAQAiABMAAwAAAAAAAQAjAAAAAwAAAAAAAQAjAAYAAwAAAAAAAQAiABkAAwAAAAAAAQAjABkAAwAAAAAAAQAkABkAAwAAAAAAAQAlABkAAwAAAAAAAQAmABkAAwAAAAAAAQAnABkAAwAAAAAAAQAoABkAAwAAAAAAAQApABkAAwAAAAAAAQAqABkAAwAAAAAAAQArABkAAwAAAAAAAQAsABkAAwAAAAAAAQAtABkAAwAAAAAAAQAuABkAAwAAAAAAAQAvABkAAwAAAAAAAQAxABkAAwAAAAAAAQAyABkAAwAAAAAAAQAzABkAAwAAAAAAAQAiABQAAwAAAAAAAQAiABUAAwAAAAAAAQAiABYAAwAAAAAAAQAiABcAAwAAAAAAAQAiABgAAwAAAAAAAQAzABQAAwAAAAAAAQAzABUAAwAAAAAAAQAzABYAAwAAAAAAAQAzABcAAwAAAAAAAQAzABgAAwAAAAAAAQAXABYAAwAAAAAABgAZAB0AAwAAAAAAAQALAB0AAwAAAAAAAQAlAAYAAwAAAAAAAQAwABkAAwAAAAAAAQA=")
 tile_set = SubResource("TileSet_7vjpr")
@@ -720,9 +724,9 @@ metadata/_custom_type_script = "uid://dgy3vprleptx1"
 material = SubResource("CanvasItemMaterial_qfctx")
 position = Vector2(457, 78)
 
-[node name="Shade" type="Sprite2D" parent="."]
-z_index = 3
-material = SubResource("ShaderMaterial_kab2t")
+[node name="ShadeDraw" type="Sprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_5k2kf")
 texture = SubResource("ViewportTexture_rernc")
 centered = false
 
@@ -736,7 +740,7 @@ render_target_clear_mode = 1
 [node name="ShadeDrawer" type="Node2D" parent="ShadeViewport"]
 script = ExtResource("15_ot3ff")
 
-[node name="Fog" type="Sprite2D" parent="."]
+[node name="FogDraw" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_ot3ff")
 texture = SubResource("ViewportTexture_r7kh0")
 centered = false
@@ -750,9 +754,9 @@ size = Vector2i(850, 430)
 [node name="FogDrawer" type="Node2D" parent="FogViewport"]
 script = ExtResource("15_r7kh0")
 
-[node name="SightInidicators" type="Sprite2D" parent="."]
-z_index = 2
-material = SubResource("ShaderMaterial_kab2t")
+[node name="SightDraw" type="Sprite2D" parent="."]
+z_index = 1
+material = SubResource("ShaderMaterial_2vipt")
 texture = SubResource("ViewportTexture_5k2kf")
 centered = false
 

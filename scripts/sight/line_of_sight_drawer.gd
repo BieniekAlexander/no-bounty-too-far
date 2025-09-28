@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 #region visualization
 func _draw():
 	# Draw a texture representing the character's cone of vision
+	# NOTE: the draw gets processed in the shader to a set opacity
+	# because overlapping draw calls would lead to too much opacity
 	if character.find_child("Sprite").visible and sight_polygon.size()>0:
-		draw_colored_polygon(sight_polygon, Color(0.76, 0.114, 0.329, 0.2))
+		draw_colored_polygon(sight_polygon, Color.BLACK)
 #endregion
