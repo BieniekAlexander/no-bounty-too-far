@@ -689,6 +689,9 @@ viewport_path = NodePath("FogViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2vipt"]
 shader = ExtResource("16_5k2kf")
+shader_parameter/vision_angle = 0.0
+shader_parameter/agent_position = Vector2(0, 0)
+shader_parameter/sight_vector = Vector2(0, 0)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5k2kf"]
 viewport_path = NodePath("SightViewport")

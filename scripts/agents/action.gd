@@ -27,8 +27,10 @@ static func patrol(a_patrol_spec: PatrolSpec) -> Action:
 		a_patrol_spec,
 		func(a_agent: Agent) -> void:
 			if a_agent.patrol_point==Vector2.INF:
-				a_agent.nav_agent.set_target_position(a_agent.get_next_patrol_point(a_patrol_spec))
-
+				var next_patrol_point: Vector2 = a_agent.get_next_patrol_point(a_patrol_spec)
+				a_agent.nav_agent.set_target_position(next_patrol_point)
+				a_agent.character.aim_direction = (next_patrol_point-a_agent.global_position).normalized()
+			
 			for i in range(a_patrol_spec.patrol_targets.size()-1, -1, -1):
 				var patrol_target: Variant = a_patrol_spec.patrol_targets[i]
 				

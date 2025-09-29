@@ -2,6 +2,7 @@
 class_name LineOfSightDrawer extends Node2D
 
 @onready var los_server: LineOfSightServer = $'../../LOSServer'
+@onready var sight_draw: Sprite2D = $'../../SightDraw'
 var character: Character
 var sight_polygon: PackedVector2Array
 
@@ -14,10 +15,12 @@ func _init(a_character: Character, a_los_server: LineOfSightServer) -> void:
 func _ready() -> void:
 	var sight_viewport: SubViewport = $'..'
 	sight_viewport.size = los_server.world_size
-	print(sight_viewport.size)
+	sight_draw.material.set_shader_parameter("vision_angle", character.find_child("Agent").vision_angle)
 
 func _process(_delta: float) -> void:
 	if character.find_child("Sprite").visible:
+		sight_draw.material.set_shader_parameter("agent_position", character.global_position)
+		sight_draw.material.set_shader_parameter("sight_vector", character.aim_direction)
 		sight_polygon = los_server.get_visibility_polgygon_triples(
 			los_server.fog_edges,
 			character.global_position,

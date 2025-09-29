@@ -15,6 +15,7 @@ class_name Agent extends Node2D
 var patrol_point: Vector2
 var player: CharacterBody2D
 var shoot_delay: int = 90
+var vision_angle: float = deg_to_rad(22.5)
 var sees_target: bool = false
 #endregion
 
