@@ -155,11 +155,13 @@ func input_equipment() -> void:
 
 #region visuals
 func process_sound_visuals() -> void:
+	# TODO figure out how to clear the drawn particles when the character has been made visible
+	# TODO only draw the particles if the character is moving
+	$StepsEffect.visible = not $Sprite.visible
 	$StepsEffect.emitting = (
 		not $Sprite.visible
 		and $'../Player'.global_position.distance_squared_to(global_position) < SoundPhysics.get_audible_distance(step_volume)**2
 	)
-	$StepsEffect.visible = $StepsEffect.emitting
 
 func process_aim() -> void:
 	if abs(aim_direction.x) > abs(aim_direction.y): #its more horizontal than vertical
