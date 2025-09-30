@@ -24,6 +24,7 @@ var sight_position: Vector2:
 const RUN_SPEED: float = 120.
 const WALK_SPEED: float = 50.
 @export var vision_radius: float = 50.
+@export var step_volume: float = 150.
 @onready var sight_ray: RayCast2D = $SightRay
 @onready var peak_query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 #endregion
@@ -48,6 +49,7 @@ func _ready() -> void:
 		add_to_group("player")
 		remove_child($Agent)
 		$HUD/ItemsBar.set_character(self)
+		remove_child($StepsEffect)
 	else:
 		remove_child($HUD)
 		add_to_group("foggable")
@@ -74,7 +76,9 @@ func _process(_delta: float) -> void:
 		process_hud()
 		if Input.is_action_just_pressed("character_dialog"): temp_rocket = true
 		if Input.is_action_just_pressed("character_use_item"): using_item = true
-		
+	else:
+		process_sound_visuals()
+	
 	process_aim()
 	
 func on_queue_free() -> void:
@@ -150,6 +154,13 @@ func input_equipment() -> void:
 #endregion
 
 #region visuals
+func process_sound_visuals() -> void:
+	$StepsEffect.emitting = (
+		not $Sprite.visible
+		and $'../Player'.global_position.distance_squared_to(global_position) < SoundPhysics.get_audible_distance(step_volume)**2
+	)
+	$StepsEffect.visible = $StepsEffect.emitting
+
 func process_aim() -> void:
 	if abs(aim_direction.x) > abs(aim_direction.y): #its more horizontal than vertical
 		$Sprite.frame = 2

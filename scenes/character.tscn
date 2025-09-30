@@ -160,5 +160,15 @@ offset_bottom = 70.0
 [node name="SightRay" type="RayCast2D" parent="."]
 collision_mask = 8
 
+[node name="StepsEffect" type="CPUParticles2D" parent="."]
+z_index = 5
+emission_shape = 4
+emission_points = PackedVector2Array(4, 0, -4, 0)
+emission_colors = PackedColorArray()
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+
 [connection signal="area_entered" from="Actor" to="Actor" method="_on_area_entered"]
 [connection signal="area_exited" from="Actor" to="Actor" method="_on_area_exited"]
