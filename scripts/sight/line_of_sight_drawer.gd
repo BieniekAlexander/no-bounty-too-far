@@ -18,7 +18,7 @@ func _ready() -> void:
 	sight_draw.material.set_shader_parameter("vision_angle", character.find_child("Agent").vision_angle)
 
 func _process(_delta: float) -> void:
-	if character.find_child("Sprite").visible:
+	if is_instance_valid(character) and character.find_child("Sprite").visible:
 		sight_draw.material.set_shader_parameter("agent_position", character.global_position)
 		sight_draw.material.set_shader_parameter("sight_vector", character.aim_direction)
 		sight_polygon = los_server.get_visibility_polgygon_triples(
@@ -34,6 +34,6 @@ func _draw():
 	# Draw a texture representing the character's cone of vision
 	# NOTE: the draw gets processed in the shader to a set opacity
 	# because overlapping draw calls would lead to too much opacity
-	if character.find_child("Sprite").visible and sight_polygon.size()>0:
+	if is_instance_valid(character) and character.find_child("Sprite").visible and sight_polygon.size()>0:
 		draw_colored_polygon(sight_polygon, Color.BLACK)
 #endregion
