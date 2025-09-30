@@ -24,6 +24,9 @@ func toggle() -> void:
 		$Sprite.frame = 0
 	
 	vertical = not vertical
+	
+func on_queue_free() -> void:
+	queue_free()
 
 func on_interact() -> void:
 	toggle()
