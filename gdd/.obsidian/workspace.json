@@ -20,8 +20,19 @@
               "icon": "lucide-file",
               "title": "character"
             }
+          },
+          {
+            "id": "513967f315d2dedf",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -170,10 +181,12 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "b06e547be7c65dbf",
+  "active": "8d3cf072e51412b6",
   "lastOpenFiles": [
-    "mechanics/systems.md",
+    "Excalidraw/controls.excalidraw.md",
+    "Excalidraw/Drawing 2025-09-30 17.43.09.excalidraw.md",
     "mechanics/character.md",
+    "mechanics/systems.md",
     "mechanics/interface.md",
     "mechanics/behavior.md",
     "objectives.md",
@@ -181,7 +194,6 @@
     "Excalidraw/m1.excalidraw.md",
     "objectives",
     "mechanics",
-    "Excalidraw/controls.excalidraw.md",
     "Excalidraw"
   ]
 }

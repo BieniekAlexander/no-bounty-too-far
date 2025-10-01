@@ -773,7 +773,7 @@ size = Vector2i(850, 430)
 process_priority = -1
 process_physics_priority = -1
 material = SubResource("CanvasItemMaterial_qfctx")
-position = Vector2(146, 389)
+position = Vector2(265, 259)
 me = true
 
 [node name="Grass" type="Node2D" parent="." groups=["obstructable"]]
