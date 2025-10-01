@@ -28,6 +28,10 @@ func update_awareness(a_agent: Agent) -> void:
 		awareness = min(state_check.call(a_agent, object)+awareness, 1.0)
 	else:
 		awareness = max(awareness-awareness_decay, 0.0)
+<<<<<<< HEAD
+=======
+		print(awareness)
+>>>>>>> 0d63c1caad10643c3882e3b4861d13292dd68422
 
 ## Check whether the given [param a_agent] can see the [param a_target], according to raycasts against the obstruction collision layer
 static func can_see(a_agent: Agent, a_target: Variant) -> float:
