@@ -17,6 +17,7 @@ static func look(a_object: Variant) -> Action:
 	return Action.new(
 		a_object,
 		func(a_agent: Agent) -> void:
+			a_agent.nav_agent.target_position = a_agent.global_position
 			a_agent.character.aim_direction = (a_object.global_position-a_agent.global_position).normalized()
 	)
 
@@ -25,6 +26,7 @@ static func shoot(a_object: Variant) -> Action:
 	return Action.new(
 		a_object,
 		func(a_agent: Agent) -> void:
+			a_agent.nav_agent.target_position = a_agent.global_position
 			a_agent.character.aim_direction = (a_object.global_position-a_agent.global_position).normalized()
 			a_agent.character.using_item = true
 	)

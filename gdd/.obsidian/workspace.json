@@ -20,19 +20,8 @@
               "icon": "lucide-file",
               "title": "character"
             }
-          },
-          {
-            "id": "513967f315d2dedf",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
