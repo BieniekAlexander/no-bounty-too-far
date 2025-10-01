@@ -12,7 +12,15 @@ func _init(a_object: Variant, a_transition: Callable) -> void:
 	object = a_object
 	transition = a_transition
 
-## Return an action that shoots at the target object
+## Return an action of looking at the target object
+static func look(a_object: Variant) -> Action:
+	return Action.new(
+		a_object,
+		func(a_agent: Agent) -> void:
+			a_agent.character.aim_direction = (a_object.global_position-a_agent.global_position).normalized()
+	)
+
+## Return an action of shooting at the target object
 static func shoot(a_object: Variant) -> Action:
 	return Action.new(
 		a_object,

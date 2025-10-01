@@ -10,7 +10,8 @@ class_name Agent extends Node2D
 @onready var patrol_spec = PatrolSpec.new($'../../PatrolRegion', [$'../../Player'])
 @onready var goals: Array = [
 	Goal.patrol(patrol_spec),
-	Goal.kill($'../../Player')
+	Goal.kill($'../../Player'),
+	Goal.look($'../../Player')
 ]
 var patrol_point: Vector2
 var player: CharacterBody2D
@@ -29,8 +30,8 @@ func _ready() -> void:
 	patrol_point = Vector2.INF
 
 func _physics_process(_delta: float) -> void:
-	process_goals()
 	process_navigation()
+	process_goals()
 #endregion
 
 #region GOAP
@@ -49,7 +50,7 @@ func process_goals() -> void:
 			actionable_goals,
 			func(goal: Goal): return -goal.priority
 		)[0]
-		 
+		
 		current_goal.action.transition.call(self)
 #endregion
 
@@ -71,6 +72,7 @@ func process_navigation() -> void:
 
 	var next_path_position: Vector2 = nav_agent.get_next_path_position()
 	nav_agent.set_velocity(global_position.direction_to(next_path_position) * get_parent().RUN_SPEED/30)
+	character.aim_direction = (next_path_position-global_position).normalized()
 
 ## Callback that performs the movement udpate according to the navmesh
 func _on_velocity_computed(safe_velocity: Vector2) -> void:
