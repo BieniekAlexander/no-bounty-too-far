@@ -35,6 +35,17 @@ func process_hud() -> void:
 		$"HUD/AmmoLabel".text = inventory.items[equipment_index].get_hud_text()
 	else:
 		$"HUD/AmmoLabel".text = ""
+	
+	if Settings.aim_mode == Settings.AimMode.CONTROLLER:
+		process_aim_cursor()
+	
+func process_aim_cursor() -> void:
+	if aim_direction.length() > 0:
+		$HUD/AimCursor.position = position + (aim_direction * $HUD/AimCursor.distance_from_character)
+		$HUD/AimCursor.rotation = aim_direction.angle() + PI/2
+		$HUD/AimCursor.show()
+	else:
+		$HUD/AimCursor.hide()
 #endregion
 
 ### Interaction
@@ -132,12 +143,29 @@ func physics_process_sight() -> void:
 
 #region input
 func input_aim() -> void:
-	aim_direction = (get_viewport().get_mouse_position() - global_position).normalized()
+	match Settings.aim_mode:
+		Settings.AimMode.MOUSE:
+			aim_direction = (get_viewport().get_mouse_position() - global_position).normalized()
+		Settings.AimMode.CONTROLLER:
+			var stick_direction = Input.get_vector(
+				"character_aim_left", 
+				"character_aim_right", 
+				"character_aim_up", 
+				"character_aim_down"
+			).normalized()
+			
+			aim_direction = stick_direction if stick_direction.length() > 0 else aim_direction
+		_:
+			OS.alert("Aiming with input mode %s not supported." % [Settings.aim_mode])
+	
 
 func input_movement() -> void:
-	movement_direction = Vector2(
-		int(Input.is_action_pressed("character_move_right")) - int(Input.is_action_pressed("character_move_left")),
-		int(Input.is_action_pressed("character_move_down")) - int(Input.is_action_pressed("character_move_up"))
+	# this works for m/k and controller. may want to separate and match on Settings.aim_mode
+	movement_direction = Input.get_vector(
+		"character_move_left", 
+		"character_move_right", 
+		"character_move_up", 
+		"character_move_down"
 	).normalized()
 	
 	if Input.is_action_just_pressed("character_toggle_walk"):
