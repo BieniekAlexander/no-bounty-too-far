@@ -1,6 +1,6 @@
 extends Node
 
-var aim_mode = AimMode.CONTROLLER
+var aim_mode = AimMode.MOUSE
 
 enum AimMode {
 	MOUSE,
